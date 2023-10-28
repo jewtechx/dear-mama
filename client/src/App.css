@@ -1,0 +1,14 @@
+.emoji1{
+    animation-name: emoji1;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+@keyframes emoji1 {
+    from{
+        transform: translateY(-50%);
+    }
+    to{
+        transform: translateY(50%);
+    }
+}
