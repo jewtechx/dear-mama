@@ -7,7 +7,7 @@ const {auth} = require("./auth.mongo")
 
 //register user
 async function registerUser(data){
-    const {name,email,password} = data
+    const {name,email,password,isAdmin} = data
     
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(password,salt)
@@ -23,7 +23,7 @@ async function registerUser(data){
     if(savedUser){
         return {
             name:name,
-            id:signToken(savedUser._id)
+            id:signToken(savedUser._id,isAdmin)
         }
     }
 
@@ -36,11 +36,15 @@ async function loginUser(data){
    
 }
 
-const signToken = (id) => {
-    return jsonwebtoken.sign({id},process.env.JWT,{
+const signToken = (id,isAdmin) => {
+    return jsonwebtoken.sign({id,isAdmin},process.env.JWT,{
         expiresIn:'30d'
     })
 }
+
+//edit user
+
+
 module.exports = {
     registerUser
 }

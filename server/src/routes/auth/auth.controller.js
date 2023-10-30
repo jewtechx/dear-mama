@@ -5,6 +5,7 @@ async function HttpGetMe(req,res){
     res.status(200).json({"message":"welcome to this pharmacy"})
 }
 
+//register
 async function HttpRegisterUser(req,res){
     var token;
 
@@ -46,7 +47,7 @@ async function HttpRegisterUser(req,res){
     }
 }
 
-
+//login
 async function HttpLoginUser(req,res){
     const data = req.body
 
@@ -58,8 +59,16 @@ async function HttpLoginUser(req,res){
         })
     }
 }
+
+//edit
+async function HttpEditUser(req,res){
+
+}
+
+
 module.exports = {
     HttpGetMe,
     HttpRegisterUser,
-    HttpLoginUser
+    HttpLoginUser,
+    HttpEditUser
 }

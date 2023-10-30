@@ -12,5 +12,13 @@ const authschema = new Schema({
     password:{
         type:String,
         required:true
+    },
+    isAdmin:{
+        type:Boolean,
+        default:false
     }
-})
+},{timeStamps:true})
+
+const auth = model('auth',authschema)
+
+module.exports = {auth}
