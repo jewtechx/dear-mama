@@ -1,5 +1,7 @@
-const {registerUser} = require("../../models/auth/auth.model")
+const {registerUser,loginUser} = require("../../models/auth/auth.model")
 const {auth} = require("../../models/auth/auth.mongo")
+
+
 
 async function HttpGetMe(req,res){
     res.status(200).json({"message":"welcome to this pharmacy"})
@@ -42,7 +44,7 @@ async function HttpRegisterUser(req,res){
             error:"user already exists"
         })
     }else{
-        token = registerUser(data)
+        token = await registerUser(data)
         res.status(200).json(token)
     }
 }
@@ -50,13 +52,21 @@ async function HttpRegisterUser(req,res){
 //login
 async function HttpLoginUser(req,res){
     const data = req.body
-
+    
     const {email,password} = data
-
+    
     if(!email || !password){
         res.status(400).json({
             error:"missing required fields"
         })
+    }else{
+        try{
+            let token = await loginUser(data)
+            token == "user not found" ? res.status(500).json({error:"user not found"}) : token == "password wrong" ? res.status(500).json({error:"password wrong"})  :
+            res.status(200).json(token)
+        }catch(err){
+            res.status(500).json({error:"user not found"})
+        }
     }
 }
 

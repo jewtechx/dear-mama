@@ -33,7 +33,21 @@ async function registerUser(data){
 async function loginUser(data){
     const {email,password} = data
 
+    const user = await auth.findOne({email:email})
+
+    const unhashedPassword = await bcrypt.compare(password,user.password)
    
+    if(!user){
+        return "user not found"
+    }
+    if(unhashedPassword){
+        return {
+            name:user.name,
+            id:signToken(user._id,user.isAdmin)
+        }
+    }else{
+        return "password wrong"
+    }
 }
 
 const signToken = (id,isAdmin) => {
@@ -46,5 +60,6 @@ const signToken = (id,isAdmin) => {
 
 
 module.exports = {
-    registerUser
+    registerUser,
+    loginUser
 }
