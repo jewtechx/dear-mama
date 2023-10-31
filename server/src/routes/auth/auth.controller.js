@@ -1,10 +1,27 @@
-const {registerUser,loginUser} = require("../../models/auth/auth.model")
-const {auth} = require("../../models/auth/auth.mongo")
+const {registerUser,loginUser, editUser, deleteUser, getAllUsers} = require("../../models/auth/auth.model")
+const {auth} = require("../../models/auth/auth.schema")
 
 
-
+//get me
 async function HttpGetMe(req,res){
-    res.status(200).json({"message":"welcome to this pharmacy"})
+    res.status(200).json(req.user)
+}
+
+//getAllUsers
+async function HttpGetAllUsers(req,res){
+    console.log(req.user)
+    if(req.user.isAdmin){
+        const query = req.query.new
+        if(query){
+            const users = await getAllUsers(true)// getting latest user
+            res.status(200).json(users)
+        }else{
+            const users = await getAllUsers(false)//getting all users
+            res.status(200).json(users)
+        }
+    }else{
+        res.status(500).json({error:"You are not authorized"})
+    }
 }
 
 //register
@@ -72,13 +89,39 @@ async function HttpLoginUser(req,res){
 
 //edit
 async function HttpEditUser(req,res){
-
+  if(req.params.id == req.user._id){
+    try{
+        const user = await editUser(req.body,req.user._id)
+        console.log(user)
+        res.status(200).json({
+            message:"user updated"
+        })
+    }catch(err){
+        res.status(500).json({error:"an error occured"})
+    }
+  }
 }
 
 
+//delete user
+async function HttpDeleteUser(req,res){
+    if(req.params.id == req.user._id){
+        try{
+            await deleteUser(req.user._id)
+            res.status(201).json({message:"user deleted successfully"})
+        }catch(err){
+         res.status(404).json({
+            error:"user not found"
+         })
+       }
+}
+    }
+
 module.exports = {
     HttpGetMe,
+    HttpGetAllUsers,
     HttpRegisterUser,
     HttpLoginUser,
-    HttpEditUser
+    HttpEditUser,
+    HttpDeleteUser
 }
