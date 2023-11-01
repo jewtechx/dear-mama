@@ -1,4 +1,4 @@
-const {registerUser,loginUser, editUser, deleteUser, getAllUsers} = require("../../models/auth/auth.model")
+const {registerUser,loginUser, editUser, deleteUser, getAllUsers, getUserStats} = require("../../models/auth/auth.model")
 const {auth} = require("../../models/auth/auth.schema")
 
 
@@ -7,7 +7,10 @@ async function HttpGetMe(req,res){
     res.status(200).json(req.user)
 }
 
-//getAllUsers
+/**
+ * This functionality if for only admin
+ * get all users
+ */
 async function HttpGetAllUsers(req,res){
     console.log(req.user)
     if(req.user.isAdmin){
@@ -23,6 +26,23 @@ async function HttpGetAllUsers(req,res){
         res.status(500).json({error:"You are not authorized"})
     }
 }
+
+/**
+ * This functionality if for only admin
+ * get user stats
+ */
+async function HttpGetUserStats(req,res){
+    if(req.user.isAdmin){
+        const date = new Date()
+        const lastyear = new Date(date.setFullYear(date.getFullYear() - 1))
+
+        const stats = await getUserStats(lastyear)
+        res.status(200).json(stats)
+    }else{
+        res.status(500).json({error:"You are not permitted to do this"})
+    }
+}
+
 
 //register
 async function HttpRegisterUser(req,res){
@@ -79,7 +99,7 @@ async function HttpLoginUser(req,res){
     }else{
         try{
             let token = await loginUser(data)
-            token == "user not found" ? res.status(500).json({error:"user not found"}) : token == "password wrong" ? res.status(500).json({error:"password wrong"})  :
+            token == "user not found" ? res.status(500).json({error:"user not found"}) : token == "password is wrong" ? res.status(500).json({error:"password is wrong"})  :
             res.status(200).json(token)
         }catch(err){
             res.status(500).json({error:"user not found"})
@@ -120,6 +140,7 @@ async function HttpDeleteUser(req,res){
 module.exports = {
     HttpGetMe,
     HttpGetAllUsers,
+    HttpGetUserStats,
     HttpRegisterUser,
     HttpLoginUser,
     HttpEditUser,

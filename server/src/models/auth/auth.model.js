@@ -16,6 +16,24 @@ async function getAllUsers(bool){
     }
 }
 
+//get user stats
+async function getUserStats(lastyear){
+    const data = await auth.aggregate([
+        {$match : {createdAt : {$gte:lastyear}}},
+        {
+            $project: {
+                month : {$month : "$createdAt"}
+            }
+        },
+        {
+            $group:{
+                _id:"$month",
+                total:{$sum:1}
+            }
+        }
+    ])
+    return data
+}
 
 //register user
 async function registerUser(data){
@@ -28,6 +46,7 @@ async function registerUser(data){
         name:name,
         email:email,
         password:hashedPassword,
+        isAdmin:isAdmin ? isAdmin : false
     })
 
     const savedUser = await register.save()
@@ -88,6 +107,7 @@ async function deleteUser(id){
 
 module.exports = {
     getAllUsers,
+    getUserStats,
     registerUser,
     loginUser,
     editUser,
