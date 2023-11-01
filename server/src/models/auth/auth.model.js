@@ -12,7 +12,11 @@ async function registerUser(data){
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(password,salt)
 
-    const register = new auth({
+    const user = await Auth.findOne({email:email})
+
+    user && res.status(500).json({error:"User already exits"})
+
+    const register = new Auth({
         name:name,
         email:email,
         password:hashedPassword
@@ -33,6 +37,9 @@ async function registerUser(data){
 async function loginUser(data){
     const {email,password} = data
 
+    const user = await auth.findOne(
+        {email:email}
+    )
    
 }
 
@@ -46,5 +53,5 @@ const signToken = (id,isAdmin) => {
 
 
 module.exports = {
-    registerUser
+    registerUser,loginUser
 }

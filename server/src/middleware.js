@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const asyncHandler = require('express-async-handler');
 const dotenv = require('dotenv');
+const {Auth} = require("./models/auth/auth.mongo")
 dotenv.config();
 
 const protect = asyncHandler(async (req, res, next) => {
@@ -12,9 +13,9 @@ const protect = asyncHandler(async (req, res, next) => {
 
             const decoded = jwt.verify(token, process.env.JWT);
 
-            req.user = decoded.id; // Assign the admin data to req.user
-            console.log(decoded)
-            console.log(decoded.id)
+            const user = await Auth.findOne({_id:decoded.id})
+
+            req.user = user.id; // Assign the admin data to req.user
 
             next(); // Call next to continue with the next middleware or route handler
         } catch (err) {

@@ -19,6 +19,6 @@ const authschema = new Schema({
     }
 },{timeStamps:true})
 
-const auth = model('auth',authschema)
+const Auth = model('Auth',authschema)
 
-module.exports = {auth}
+module.exports = {Auth}

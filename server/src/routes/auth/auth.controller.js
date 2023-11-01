@@ -61,8 +61,10 @@ async function HttpLoginUser(req,res){
 }
 
 //edit
-async function HttpEditUser(req,res){
-
+async function HttpAdmin(req,res){
+    if (req.user == req.params.id || req.user.isAdmin){
+        
+    }
 }
 
 
@@ -70,5 +72,5 @@ module.exports = {
     HttpGetMe,
     HttpRegisterUser,
     HttpLoginUser,
-    HttpEditUser
+    HttpAdmin
 }
