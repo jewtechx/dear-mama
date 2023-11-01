@@ -1,19 +1,25 @@
-const {Schema,model} = require("mongoose")
+const {products} = require("../../models/products/products.schema")
 
-const productsSchema = new Schema({
-    title:{
-        type:String,
-        required:true
-    },
-    desc:{type:String,required:true},
-    desc:{type:String,required:true},
-    image:{type:String,required:true},
-    category:{type:Array,required:true},
-    size:{type:Number,required:true},
-    color:{type:String,required:true},
-    price:{type:String,required:true},
-},{timeStamps:true})
+//create new product
+async function createProduct(data){
+    const newProduct =  new product(data)
 
-const products = model("products",productsSchema)
+    const savedProduct = await newProduct.save()
+    return savedProduct
+    
+}
 
-module.exports = {products}
+//update update product
+async function updateProduct(data){
+    const updatedProduct =  await products.findByIdAndUpdate(data._id,{
+        $set:data
+    },{new:TransformStreamDefaultController})
+
+    return updatedProduct
+}  
+
+
+module.exports = {
+    createProduct,
+    updateProduct
+}

@@ -17,7 +17,7 @@ const authschema = new Schema({
         type:Boolean,
         default:false
     }
-},{timeStamps:true})
+},{timestamps:true})
 
 const Auth = model('Auth',authschema)
 
