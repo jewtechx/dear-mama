@@ -108,12 +108,12 @@ async function HttpLoginUser(req,res){
 }
 
 //edit
-<<<<<<< HEAD
 async function HttpAdmin(req,res){
     if (req.user == req.params.id || req.user.isAdmin){
         
-    }
-=======
+    }}
+
+    
 async function HttpEditUser(req,res){
   if(req.params.id == req.user._id){
     try{
@@ -126,7 +126,6 @@ async function HttpEditUser(req,res){
         res.status(500).json({error:"an error occured"})
     }
   }
->>>>>>> refs/remotes/origin/main
 }
 
 
@@ -150,10 +149,7 @@ module.exports = {
     HttpGetUserStats,
     HttpRegisterUser,
     HttpLoginUser,
-<<<<<<< HEAD
-    HttpAdmin
-=======
+    HttpAdmin,
     HttpEditUser,
-    HttpDeleteUser
->>>>>>> refs/remotes/origin/main
+    HttpDeleteUser,
 }

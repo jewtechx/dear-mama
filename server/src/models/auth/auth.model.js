@@ -69,15 +69,11 @@ async function registerUser(data){
 async function loginUser(data){
     const {email,password} = data
 
-<<<<<<< HEAD
     const user = await auth.findOne(
         {email:email}
     )
-=======
-    const user = await auth.findOne({email:email})
 
     const unhashedPassword = await bcrypt.compare(password,user.password)
->>>>>>> refs/remotes/origin/main
    
     if(!user){
         return "user not found"
@@ -116,14 +112,11 @@ async function deleteUser(id){
 
 
 module.exports = {
-<<<<<<< HEAD
-    registerUser,loginUser
-=======
+    registerUser,loginUser,
     getAllUsers,
     getUserStats,
     registerUser,
     loginUser,
     editUser,
     deleteUser
->>>>>>> refs/remotes/origin/main
 }
