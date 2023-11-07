@@ -36,7 +36,39 @@ async function HttpUpdateProduct(req,res){
     }
 }
 
+/** 
+ * Admin functionalities
+ * delete product
+ */
+async function HttpDeleteProduct(req,res){
+    if(req.params.id == req.user._id){
+        try{
+            await deleteProduct(req)
+            res.status(201).json({message:"product deleted successfully"})
+        }catch(err){
+         res.status(404).json({
+            error:"product not found"
+         })
+       }
+}
+    }
 
+    async function HttpGetAllProducts(req,res){
+        if(req.user.isAdmin){
+            const query = req.query.new
+            const category = req.query.category
+            
+            if(query){
+                const users = await getAllUsers(true)// getting latest user
+                res.status(200).json(users)
+            }else{
+                const users = await getAllUsers(false)//getting all users
+                res.status(200).json(users)
+            }
+        }else{
+            res.status(500).json({error:"You are not authorized"})
+        }
+    }
 module.exports = {
     HttpCreateProduct,
     HttpUpdateProduct

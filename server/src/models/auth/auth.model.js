@@ -3,22 +3,22 @@ const bcrypt = require("bcrypt")
 const dotenv = require("dotenv")
 dotenv.config()
 
-const {auth} = require("./auth.schema")
+const {Auth} = require("./auth.schema")
 
 // get all users 
 async function getAllUsers(bool){
     if(bool){
-        const users = await auth.find().sort({_id:-1}).limit(1)
+        const users = await Auth.find().sort({_id:-1}).limit(1)
         return users
     }else{
-        const users = await auth.find().exec()
+        const users = await Auth.find().exec()
         return users
     }
 }
 
 //get user stats
 async function getUserStats(lastyear){
-    const data = await auth.aggregate([
+    const data = await Auth.aggregate([
         {$match : {createdAt : {$gte:lastyear}}},
         {
             $project: {
@@ -69,7 +69,7 @@ async function registerUser(data){
 async function loginUser(data){
     const {email,password} = data
 
-    const user = await auth.findOne(
+    const user = await Auth.findOne(
         {email:email}
     )
 
@@ -98,7 +98,7 @@ const signToken = (id,isAdmin) => {
 async function editUser(data,id){
    if(data){
     console.log(data)
-    const editedUser = await auth.findByIdAndUpdate(id,{
+    const editedUser = await Auth.findByIdAndUpdate(id,{
         $set:data
     },{new:true})
        return editedUser
@@ -107,7 +107,7 @@ async function editUser(data,id){
 
 //delete user
 async function deleteUser(id){
-        const user = await auth.findByIdAndDelete(id)
+        const user = await Auth.findByIdAndDelete(id)
 }
 
 

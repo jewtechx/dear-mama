@@ -2,7 +2,7 @@ const {products} = require("../../models/products/products.schema")
 
 //create new product
 async function createProduct(data){
-    const newProduct =  new product(data)
+    const newProduct =  new products(data)
 
     const savedProduct = await newProduct.save()
     return savedProduct
@@ -13,7 +13,7 @@ async function createProduct(data){
 async function updateProduct(data){
     const updatedProduct =  await products.findByIdAndUpdate(data._id,{
         $set:data
-    },{new:TransformStreamDefaultController})
+    },{new:true})
 
     return updatedProduct
 }  

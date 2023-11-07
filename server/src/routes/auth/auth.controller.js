@@ -1,5 +1,5 @@
 const {registerUser,loginUser, editUser, deleteUser, getAllUsers, getUserStats} = require("../../models/auth/auth.model")
-const {auth} = require("../../models/auth/auth.schema")
+const {Auth} = require("../../models/auth/auth.schema")
 
 
 //get me
@@ -58,21 +58,21 @@ async function HttpRegisterUser(req,res){
         })
     }
 
-    if (!auth) {
+    if (!Auth) {
         res.status(500).json({
             error: "auth object is undefined"
         })
         return;
     }
 
-    if (!auth.findOne) {
+    if (!Auth.findOne) {
         res.status(500).json({
             error: "auth object does not have a findOne method"
         })
         return;
     }
 
-    const user = await auth.findOne({
+    const user = await Auth.findOne({
         email:email
     }).exec();
 
