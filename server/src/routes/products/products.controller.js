@@ -1,4 +1,4 @@
-const { createProduct, updateProduct } = require("../../models/products/products.model")
+const { createProduct, updateProduct,deleteProduct,getAllProducts } = require("../../models/products/products.model")
 const {products} = require("../../models/products/products.schema")
 
 /** 
@@ -25,7 +25,7 @@ async function HttpCreateProduct(req,res){
 async function HttpUpdateProduct(req,res){
     if(req.user.isAdmin){
         try{
-            const updatedProduct = await updateProduct(req.body)
+            const updatedProduct = await updateProduct(req.params.id,req.body)
             res.status(200).json({message:"product updated successfully"})
         }catch(err){
             res.status(500).json({error:"error updating product"})
@@ -41,9 +41,9 @@ async function HttpUpdateProduct(req,res){
  * delete product
  */
 async function HttpDeleteProduct(req,res){
-    if(req.params.id == req.user._id){
+    if(req.user.isAdmin){
         try{
-            await deleteProduct(req)
+            await deleteProduct(req.params.id)
             res.status(201).json({message:"product deleted successfully"})
         }catch(err){
          res.status(404).json({
@@ -53,17 +53,20 @@ async function HttpDeleteProduct(req,res){
 }
     }
 
+    /** 
+ * Admin functionalities
+ * get all products
+ */
     async function HttpGetAllProducts(req,res){
         if(req.user.isAdmin){
             const query = req.query.new
             const category = req.query.category
             
-            if(query){
-                const users = await getAllUsers(true)// getting latest user
-                res.status(200).json(users)
-            }else{
-                const users = await getAllUsers(false)//getting all users
-                res.status(200).json(users)
+            try{
+                const products = await getAllProducts(query,category)// getting latest user
+                res.status(200).json(products)
+            }catch(err){
+                res.status(500).json({error:"error getting all products"})
             }
         }else{
             res.status(500).json({error:"You are not authorized"})
@@ -71,5 +74,7 @@ async function HttpDeleteProduct(req,res){
     }
 module.exports = {
     HttpCreateProduct,
-    HttpUpdateProduct
+    HttpUpdateProduct,
+    HttpDeleteProduct,
+    HttpGetAllProducts
 }
