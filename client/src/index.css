@@ -1,21 +1,28 @@
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap");
+  @import url('https://fonts.googleapis.com/css2?family=Mulish&display=swap');
 
 * {
   margin: 0;
   padding: 0;
 }
 
+body{
+  font-family: 'Mulish', sans-serif;
+}
+
 .headline_text{
-  @apply leading-[30px] text-3xl text-slate-900/80 font-[600]
+  @apply leading-[30px] text-3xl text-slate-900/90 font-[600]
 }
 .label_text{
-  @apply leading-[30px] text-sm text-slate-900/70 font-[700]
+  @apply leading-[30px] text-sm text-slate-900/80 font-[700]
 }
 .input{
   @apply p-2 border-[0.1px] rounded-xl border-slate-200/90 outline-slate-100
 }
 .body_text{
   @apply text-slate-900/70 text-lg font-[500]
+}
+.primary_button{
+  @apply text-slate-50/90 text-[14px] my-6 font-semibold p-2 rounded-lg bg-purple_shade
 }
 @tailwind base;
 @tailwind components;
