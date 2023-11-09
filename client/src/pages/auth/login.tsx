@@ -3,7 +3,7 @@ import React from 'react'
 export default function Login() {
   return (
     <div className='max-w-7xl mx-auto h-screen grid grid-cols-1 lg:grid-cols-2'>
-        <div className='flex flex-col p-20 justify-center'>
+        <div className='flex flex-col p-10 md:p-20 justify-center'>
             <h1 className='headline_text mb-10'>Start Buying Now</h1>
 
             <form className='items-left w-full'>
@@ -55,7 +55,7 @@ export default function Login() {
 
                 <button className='primary_button w-full'>Sign Up</button>
 
-                {/* sign up with google */}
+                {/* sign up with google/github */}
                 <div className='flex flex-col'>
                     <div className='w-full h-[4px] mt-4 flex relative flex-col items-center justify-center'>
                        <p className='body_text p-2 bg-white absolute'>or</p>
@@ -65,11 +65,11 @@ export default function Login() {
 
                     <div className='flex justify-between mt-6'>
                         <button className='input flex gap-2 items-center justify-center mr-4'>
-                            <img src='https://www.techjunkie.com/wp-content/uploads/2020/11/How-to-Change-the-Google-Logo.jpg' className='w-18 h-8'/>
+                            <img src='https://www.techjunkie.com/wp-content/uploads/2020/11/How-to-Change-the-Google-Logo.jpg' className='w-10 h-8 md:w-18 md:h-8'/>
                             Sign in with google
                         </button>
-                        <button className='input flex gap-2 items-center justify-center mr-4'>
-                            <img src='https://www.svgrepo.com/show/303110/apple-black-logo.svg' className='w-18 h-8'/>
+                        <button className='input flex gap-2 px-4 items-center justify-center mr-4'>
+                            <img src='https://www.svgrepo.com/show/303110/apple-black-logo.svg' className='w-8 h-8 md:w-18 md:h-8'/>
                             Sign in with apple
                         </button>
                     </div>
@@ -78,7 +78,9 @@ export default function Login() {
             </form>
         </div>
         
-        <div className='bg-slate-400'></div>
+        <div className='w-full h-full'>
+            <img src="https://storyset.com/illustration/pharmacist/amico#845EC2FF&hide=&hide=complete" className='w-full h-full rounded-tl-xl'/>
+        </div>
     </div>
   )
 }
