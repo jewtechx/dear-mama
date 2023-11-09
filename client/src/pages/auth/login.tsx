@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Login() {
   return (
@@ -65,7 +66,7 @@ export default function Login() {
 
                     <div className='flex justify-between mt-6'>
                         <button className='input flex gap-2 items-center justify-center mr-4'>
-                            <img src='https://www.techjunkie.com/wp-content/uploads/2020/11/How-to-Change-the-Google-Logo.jpg' className='w-10 h-8 md:w-18 md:h-8'/>
+                            <img src='https://play-lh.googleusercontent.com/aFWiT2lTa9CYBpyPjfgfNHd0r5puwKRGj2rHpdPTNrz2N9LXgN_MbLjePd1OTc0E8Rl1=w240-h480-rw' className='w-10 h-10 md:w-18 md:h-8'/>
                             Sign in with google
                         </button>
                         <button className='input flex gap-2 px-4 items-center justify-center mr-4'>
@@ -73,13 +74,20 @@ export default function Login() {
                             Sign in with apple
                         </button>
                     </div>
+
+
+                    {/* already have an account */}
+                    <div className='flex gap-2 items-center justify-center mt-4'>
+                        <p className="body_text">Already have an account ? </p>
+                        <Link to={"/signup"} className='body_text text-purple_shade hover:underline underline-purple_shade'>Sign Up</Link>
+                    </div>
                 </div>
                 
             </form>
         </div>
         
-        <div className='w-full h-full'>
-            <img src="https://storyset.com/illustration/pharmacist/amico#845EC2FF&hide=&hide=complete" className='w-full h-full rounded-tl-xl'/>
+        <div className='w-full h-full flex items-center justify-center'>
+            <img src="https://i.postimg.cc/CKpzQFLd/Pharmacist-amico.png" className='w-3/4 h-3/4 rounded-tl-xl'/>
         </div>
     </div>
   )

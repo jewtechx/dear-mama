@@ -16,7 +16,7 @@ body{
   @apply leading-[30px] text-sm text-slate-900/80 font-[700]
 }
 .input{
-  @apply p-2 border-[0.1px] text-[14px] md:text-lg rounded-xl border-slate-200/90 outline-slate-100
+  @apply p-2 border-[0.1px] text-[14px] md:text-[16px] rounded-xl border-slate-200/90 outline-slate-100
 }
 .body_text{
   @apply text-slate-900/70 text-[14px] md:text-lg font-[500]
