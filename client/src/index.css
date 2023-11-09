@@ -1,4 +1,4 @@
-  @import url('https://fonts.googleapis.com/css2?family=Mulish&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
 
 * {
   margin: 0;
@@ -6,20 +6,20 @@
 }
 
 body{
-  font-family: 'Mulish', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 .headline_text{
-  @apply leading-[30px] text-2xl md:text-3xl text-slate-900/90 font-[600]
+  @apply leading-[30px] text-2xl md:text-3xl text-slate-900/90 font-[500]
 }
 .label_text{
-  @apply leading-[30px] text-sm text-slate-900/80 font-[700]
+  @apply leading-[30px] text-sm text-slate-900/80 font-[600]
 }
 .input{
-  @apply p-2 border-[0.1px] text-[14px] md:text-[16px] rounded-xl border-slate-200/90 outline-slate-100
+  @apply p-2 text-slate-900/70 tracking-[0.3px] border-[0.1px] text-[14px] md:text-[16px] rounded-xl border-slate-200/90 outline-slate-100
 }
 .body_text{
-  @apply text-slate-900/70 text-[14px] md:text-lg font-[500]
+  @apply text-slate-900/70 text-[14px] md:text-lg font-[400] tracking-[0.3px]
 }
 .primary_button{
   @apply text-slate-50/90 text-[14px] my-6 font-semibold p-2 rounded-lg bg-purple_shade

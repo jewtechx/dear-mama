@@ -1,7 +1,20 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+interface formdata {
+    name:String,
+    email:String,
+    password:String
+}
+
 export default function Login() {
+
+    // getting form data
+    const formData:formdata = {
+        name:'',
+        email:'',
+        password:''
+    }
   return (
     <div className='max-w-7xl mx-auto h-screen grid grid-cols-1 lg:grid-cols-2'>
         <div className='flex flex-col p-10 md:p-20 justify-center'>
@@ -87,7 +100,7 @@ export default function Login() {
         </div>
         
         <div className='w-full h-full flex items-center justify-center'>
-            <img src="https://i.postimg.cc/CKpzQFLd/Pharmacist-amico.png" className='w-3/4 h-3/4 rounded-tl-xl'/>
+            <img src="https://i.postimg.cc/CKpzQFLd/Pharmacist-amico.png" className='w-4/4 h-3/4 rounded-tl-xl'/>
         </div>
     </div>
   )
