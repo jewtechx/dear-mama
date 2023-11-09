@@ -9,29 +9,59 @@ interface formdata {
 
 export default function Login() {
 
-    // getting form data
-    const formData:formdata = {
-        name:'',
-        email:'',
-        password:''
-    }
+    const [formData, setFormData] = React.useState<formdata>({
+        name: '',
+        email: '',
+        password: '',
+      });
+
+      //input changes
+      const handleInputChange = (event: { target: { name: any; value: any; }; }) => {
+        setFormData((prevState) => ({
+          ...prevState,
+          [event.target.name]: event.target.value,
+        }));
+      };
+    
+      //submission
+      const onSubmit = (e: { preventDefault: () => void; }) => {
+        e.preventDefault();
+        const inputs = document.querySelectorAll('input');
+    
+        inputs.forEach((input) => {
+          if (input.value === '') {
+            input.style.borderColor = 'tomato';
+          } else {
+            input.style.borderColor = '';
+          }
+        });
+
+        const { name, email, password } = formData;
+            if (name && email && password) {
+                alert("Submitted")
+            } else {
+                alert("Missing requried field")
+            }
+      };
+
+    
   return (
     <div className='max-w-7xl mx-auto h-screen grid grid-cols-1 lg:grid-cols-2'>
         <div className='flex flex-col p-10 md:p-20 justify-center'>
-            <h1 className='headline_text mb-10'>Start Buying Now</h1>
+            <h1 className='headline_text mb-10'>Get Better Now</h1>
 
             <form className='items-left w-full'>
                 <div className='flex flex-col mb-4 '>
                     <label htmlFor='name' className='label_text'>Name</label>
-                    <input type="text" className='input' placeholder='Enter your name'/>
+                    <input type="text" className='input' placeholder='Enter your name' onChange={handleInputChange}/>
                 </div>
                 <div className='flex flex-col mb-4 '>
                     <label htmlFor='email' className='label_text'>Email Address</label>
-                    <input type="text" className='input' placeholder='Enter your email'/>
+                    <input type="email" className='input' placeholder='Enter your email' onChange={handleInputChange}/>
                 </div>
                 <div className='flex flex-col mb-4 '>
                     <label htmlFor='password' className='label_text'>Password</label>
-                    <input type="text" className='input' placeholder='password'/>
+                    <input type="password" className='input' placeholder='password' onChange={handleInputChange}/>
                 </div>
 
                 {/* terms and policy */}
@@ -67,7 +97,7 @@ export default function Login() {
                     <p className='body_text'>I agree to the <a href="#">terms & policy</a></p>
                     </div>
 
-                <button className='primary_button w-full'>Sign Up</button>
+                <button className='primary_button w-full' onClick={onSubmit}>Sign Up</button>
 
                 {/* sign up with google/github */}
                 <div className='flex flex-col'>
