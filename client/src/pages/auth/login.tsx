@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useDispatch,useSelector } from 'react-redux'
 import { RegisterUser, reset } from '../../redux/auth.reducer';
 import { toast,ToastContainer } from 'react-toastify';
+import {ThunkDispatch} from "@reduxjs/toolkit";
 import 'react-toastify/dist/ReactToastify.css';
 
 interface formdata {
@@ -44,7 +45,8 @@ export default function Login() {
     
       //submission
       const {error,loading,success} = useSelector((state) => state.auth)
-      const dispatch = useDispatch();
+      const {name,email,password} = formData
+      const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
 
     const onSubmit = async(e: { preventDefault: () => void; }) => {
         e.preventDefault();
@@ -59,15 +61,13 @@ export default function Login() {
         });
 
         try{
-            const register = dispatch(RegisterUser(formData))
+          dispatch(RegisterUser({ name, email, password }))
         }catch(err){
-            console.log("error registering")
+            console.log(err)
         }
+        
+        //toast
 
-      };
-
-    //toast
-    React.useEffect(() => {
         if (loading && !error && !success) {
           toast.loading('Please wait...',toastOptions)
         } else {
@@ -80,7 +80,12 @@ export default function Login() {
             window.location.href= '/'
           }
         }
-      },[error,success])
+   
+
+      };
+
+    
+    
 
 
   return (
