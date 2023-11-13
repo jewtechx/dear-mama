@@ -1,5 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useDispatch,useSelector } from 'react-redux'
+import { RegisterUser, reset } from '../../redux/auth.reducer';
+import { toast,ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface formdata {
     name:String,
@@ -7,7 +11,21 @@ interface formdata {
     password:String
 }
 
+
 export default function Login() {
+    //toast options 
+    
+    const toastOptions = {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      };
+      
 
     const [formData, setFormData] = React.useState<formdata>({
         name: '',
@@ -17,6 +35,7 @@ export default function Login() {
 
       //input changes
       const handleInputChange = (event: { target: { name: any; value: any; }; }) => {
+        dispatch(reset())
         setFormData((prevState) => ({
           ...prevState,
           [event.target.name]: event.target.value,
@@ -24,7 +43,10 @@ export default function Login() {
       };
     
       //submission
-      const onSubmit = (e: { preventDefault: () => void; }) => {
+      const {error,loading,success} = useSelector((state) => state.auth)
+      const dispatch = useDispatch();
+
+    const onSubmit = async(e: { preventDefault: () => void; }) => {
         e.preventDefault();
         const inputs = document.querySelectorAll('input');
     
@@ -36,15 +58,31 @@ export default function Login() {
           }
         });
 
-        const { name, email, password } = formData;
-            if (name && email && password) {
-                alert("Submitted")
-            } else {
-                alert("Missing requried field")
-            }
+        try{
+            const register = dispatch(RegisterUser(formData))
+        }catch(err){
+            console.log("error registering")
+        }
+
       };
 
-    
+    //toast
+    React.useEffect(() => {
+        if (loading && !error && !success) {
+          toast.loading('Please wait...',toastOptions)
+        } else {
+          if (error) {
+            toast.error('Error Creating Account. Check Inputs', toastOptions);
+          }
+      
+          if (success) {
+            toast.success('Account Creation Successful', toastOptions);
+            window.location.href= '/'
+          }
+        }
+      },[error,success])
+
+
   return (
     <div className='max-w-7xl mx-auto h-screen grid grid-cols-1 lg:grid-cols-2'>
         <div className='flex flex-col p-10 md:p-20 justify-center'>
@@ -132,6 +170,16 @@ export default function Login() {
         <div className='w-full h-full flex items-center justify-center'>
             <img src="https://i.postimg.cc/CKpzQFLd/Pharmacist-amico.png" className='w-4/4 h-3/4 rounded-tl-xl'/>
         </div>
+        <ToastContainer position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"/>
     </div>
   )
 }

@@ -1,0 +1,8 @@
+{
+  "scripts":{
+    "dev":"npm run dev --prefix client & npm run server --prefix server"
+  },
+  "dependencies": {
+    "cross-env": "^7.0.3"
+  }
+}
