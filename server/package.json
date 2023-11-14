@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test":"jest --detectOpenHandles",
     "server": "nodemon src/server.js",
     "cluster": "pm2 start src/server.js -i max"
   },

@@ -59,7 +59,7 @@ async function registerUser(data){
         return {
             name:name,
             isAdmin:savedUser.isAdmin,
-            id:signToken(savedUser._id)
+            token:signToken(savedUser._id)
         }
     }
 
@@ -81,7 +81,7 @@ async function loginUser(data){
     if(unhashedPassword){
         return {
             name:user.name,
-            id:signToken(user._id)
+            token:signToken(user._id)
         }
     }else{
         return "password wrong"
