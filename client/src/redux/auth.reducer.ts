@@ -1,5 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
+interface signup {
+  name:string,
+  email:string,
+  password:string,
+}
+interface signin {
+  name:string,
+  email:string,
+  password:string,
+}
+
 const initialState = {
     token: '',
     error:false,
@@ -8,7 +19,7 @@ const initialState = {
 }
 const api = "http://localhost:6000/v1/auth/"
 
-export const RegisterUser = createAsyncThunk('register', async (data,thunkAPI) => {
+export const RegisterUser = createAsyncThunk('register', async (data:signup,thunkAPI) => {
     try {
         const res = await fetch(`${api}register`, {
           method: 'POST',
@@ -33,7 +44,7 @@ export const RegisterUser = createAsyncThunk('register', async (data,thunkAPI) =
     }
 })
 
-export const LoginUser = createAsyncThunk('login', async (data,thunkAPI) => {
+export const LoginUser = createAsyncThunk('login', async (data:signin,thunkAPI) => {
     try {
         const res = await fetch(`${api}login`, {
           method: 'POST',

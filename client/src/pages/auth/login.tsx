@@ -5,15 +5,16 @@ import { RegisterUser, reset } from '../../redux/auth.reducer';
 import { toast,ToastContainer } from 'react-toastify';
 import {ThunkDispatch} from "@reduxjs/toolkit";
 import 'react-toastify/dist/ReactToastify.css';
+import { RootState } from '../../redux/store';
 
 interface formdata {
-    name:String,
-    email:String,
-    password:String
+    name:string,
+    email:string,
+    password:string
 }
 
 
-export default function Login() {
+export default function SignUp() {
     //toast options 
     
     const toastOptions = {
@@ -44,44 +45,31 @@ export default function Login() {
       };
     
       //submission
-      const {error,loading,success} = useSelector((state) => state.auth)
-      const {name,email,password} = formData
+      const {error,loading,success} = useSelector((state:RootState) => state.auth)
+
       const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
 
     const onSubmit = async(e: { preventDefault: () => void; }) => {
         e.preventDefault();
         const inputs = document.querySelectorAll('input');
     
-        inputs.forEach((input) => {
+        inputs.forEach(async (input) => {
           if (input.value === '') {
             input.style.borderColor = 'tomato';
           } else {
             input.style.borderColor = '';
           }
-        });
-
-        try{
-          dispatch(RegisterUser({ name, email, password }))
-        }catch(err){
-            console.log(err)
         }
-        
-        //toast
-
-        if (loading && !error && !success) {
-          toast.loading('Please wait...',toastOptions)
-        } else {
-          if (error) {
-            toast.error('Error Creating Account. Check Inputs', toastOptions);
-          }
-      
-          if (success) {
-            toast.success('Account Creation Successful', toastOptions);
-            window.location.href= '/'
-          }
+        );
+        await dispatch(RegisterUser(formData))
+        if(error){
+          toast.error('Error signing up. Check your inputs', toastOptions)
+        }else if(loading){
+          toast.loading('Please wait...', toastOptions)
+        }else if(success){
+          toast.success('Signed up successfully' ,  toastOptions)
+          window.location.href = '/'
         }
-   
-
       };
 
     
@@ -89,7 +77,8 @@ export default function Login() {
 
 
   return (
-    <div className='max-w-7xl mx-auto h-screen grid grid-cols-1 lg:grid-cols-2'>
+    <div className='w-full z-10  absolute top-0 left-0 right-0 bottom-0 bg-white '>
+      <div className="max-w-7xl grid grid-cols-1 lg:grid-cols-2 mx-auto h-screen">
         <div className='flex flex-col p-10 md:p-20 justify-center'>
             <h1 className='headline_text mb-10'>Get Better Now</h1>
 
@@ -174,6 +163,7 @@ export default function Login() {
         
         <div className='w-full h-full flex items-center justify-center'>
             <img src="https://i.postimg.cc/CKpzQFLd/Pharmacist-amico.png" className='w-4/4 h-3/4 rounded-tl-xl'/>
+        </div>
         </div>
         <ToastContainer position="top-right"
             autoClose={5000}

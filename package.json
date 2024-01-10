@@ -1,6 +1,8 @@
 {
   "scripts":{
-    "dev":"npm run dev --prefix client & npm run server --prefix server"
+    "dev":"npm run dev --prefix client & npm run server --prefix server",
+    "start":"npm run dev --prefix client & npm run server --prefix server",
+    "build":"npm run build --prefix client"
   },
   "dependencies": {
     "cross-env": "^7.0.3"

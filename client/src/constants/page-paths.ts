@@ -1,5 +1,5 @@
 //auth
-export const LOGIN = "/login";
+export const SIGNUP = "/signup";
 
 // for main pages
 export const DASHBOARD = "/";

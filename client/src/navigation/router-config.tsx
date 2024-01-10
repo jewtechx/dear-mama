@@ -8,12 +8,12 @@ import {
 import NotFound from "../pages/404/NotFound";
 import Layout from "../navigation/layout/main-layout";
 import Dashboard from "../pages/dashboard/Dashboard";
-import Login from '../pages/auth/login'
+import SignUp from '../pages/auth/login'
 
 import {
   DASHBOARD,
   MAIN_LAYOUT,
-  LOGIN
+  SIGNUP
 } from "../constants/page-paths";
 
 
@@ -22,7 +22,7 @@ const router = createBrowserRouter(
     <>
       <Route path={MAIN_LAYOUT} element={<Layout />}>
            <Route path={DASHBOARD} element={<Dashboard />} />
-           <Route path={LOGIN} element={<Login />} />
+           <Route path={SIGNUP} element={<SignUp />} />
            
       </Route>
       
